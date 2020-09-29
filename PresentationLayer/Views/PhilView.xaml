@@ -1,0 +1,197 @@
+﻿<Window x:Class="MandalorianDB.PresentationLayer.PhilView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MandalorianDB.PresentationLayer"
+        mc:Ignorable="d"
+        Title="Phil's Mandolorian DB" Height="450" Width="800" Background="Brown">
+    <Window.Resources>
+        <Style x:Key="TextBoxInput" TargetType="TextBox">
+            <Setter Property="MinHeight" Value="10"/>
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="Foreground" Value="Brown"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style x:Key="TextBlockDetail" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Brown"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinWidth" Value="150"/>
+            <Setter Property="MinHeight" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+
+        </Style>
+        <Style x:Key="LabelDetail" TargetType="Label">
+            <Setter Property="Foreground" Value="CadetBlue"/>
+        </Style>
+        <Style x:Key="ButtonStyleSmall" TargetType="Button">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="2.5"/>
+            <Setter Property="Background" Value="Brown"/>
+            <Setter Property="Foreground" Value="AntiqueWhite"/>
+            <Setter Property="BorderBrush" Value="RosyBrown"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DarkOliveGreen"/>
+                    <Setter Property="Foreground" Value="AntiqueWhite"/>
+                    
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="TextBoxDetails" TargetType="TextBox">
+            <Setter Property="Foreground" Value="Brown"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MaxHeight" Value="100"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+        </Style>
+        <Style x:Key="MainListBox" TargetType="ListBox">
+            <Setter Property="Foreground" Value="Brown"/>
+            <Setter Property="MaxHeight" Value="200"/>
+            <Setter Property="MinHeight" Value="100"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style x:Key="CharListBox" TargetType="ListBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="Brown"/>
+            <Setter Property="MaxHeight" Value="75"/>
+            <Setter Property="MinHeight" Value="25"/>
+            <Setter Property="Width" Value="150"/>
+        </Style>
+        <Style x:Key="RadioButtonSelect" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="CadetBlue"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DarkOliveGreen"/>
+                    <Setter Property="Foreground" Value="AntiqueWhite"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:PhilViewModel/>
+    </Window.DataContext>
+    <Grid Background="Black" Margin="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0">
+            <Label Content="The Mandalorian" Foreground="RosyBrown" FontSize="32"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="5,0,-5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Episode: " Foreground="CadetBlue"/>
+                    <TextBlock Text="{Binding SelectedEpisode.Name}" Style="{StaticResource TextBlockDetail}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Season: " Foreground="CadetBlue"/>
+                    <TextBlock Text="{Binding SelectedEpisode.SeasonNumber}" Style="{StaticResource TextBlockDetail}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Writer: " Foreground="CadetBlue"/>
+                    <TextBlock Text="{Binding SelectedEpisode.Writer}" Style="{StaticResource TextBlockDetail}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Director: " Foreground="CadetBlue"/>
+                    <TextBlock Text="{Binding SelectedEpisode.Director}" Style="{StaticResource TextBlockDetail}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Characters: " Foreground="CadetBlue"/>
+                    <ListBox Style="{StaticResource CharListBox}" ItemsSource="{Binding Path=SelectedEpisode.Characters}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Details" Foreground="CadetBlue"/>
+                    <TextBox Text="{Binding SelectedEpisode.EpisodeDetails}" Style="{StaticResource TextBoxDetails}"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="EpisodeSortAsc" IsChecked="True" Content="Episode Asc" Style="{StaticResource RadioButtonSelect}" Command="{Binding RadioCommandSortAsc}" CommandParameter="Episodes"/>
+                    <RadioButton x:Name="EpisodeSortDesc" Content="Episode Desc" Style="{StaticResource RadioButtonSelect}" Command="{Binding RadioCommandSortDesc}" CommandParameter= "Episodes"/>
+
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="209*"/>
+                    <ColumnDefinition Width="52*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+                    <TextBox Name="TBoxSearch" Text="" Style="{StaticResource TextBoxInput}"/>
+                    <Button Content="Search" Style="{StaticResource ButtonStyleSmall}" Command="{Binding ButtonSearchCommand}" CommandParameter="{Binding ElementName=TBoxSearch}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton Style="{StaticResource RadioButtonSelect}" Content="Director" Command="{Binding RadioCommandSearchCrit}" CommandParameter="Director"/>
+                    <RadioButton Style="{StaticResource RadioButtonSelect}" Content="Writer" Command="{Binding RadioCommandSearchCrit}" CommandParameter="Writer"/>
+                    <RadioButton Style="{StaticResource RadioButtonSelect}" Content="Character" Command="{Binding RadioCommandSearchCrit}" CommandParameter="Character"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="0">
+                <StackPanel Orientation="Vertical">
+                    <ListBox Style="{StaticResource MainListBox}" ItemsSource="{Binding Episodes}" SelectedItem="{Binding SelectedEpisode}" DisplayMemberPath="Name"/>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Add" Style="{StaticResource ButtonStyleSmall}" Command="{Binding ButtonAddCommand}" CommandParameter="{Binding Episodes}"/>
+                <Button Content="Edit" Style="{StaticResource ButtonStyleSmall}" Command="{Binding ButtonEditCommand}" CommandParameter="{Binding SelectedEpisode}" />
+                <Button Content="Delete" Style="{StaticResource ButtonStyleSmall}" Command="{Binding ButtonDeleteCommand}" CommandParameter="{Binding SelectedEpisode}"/>
+                <Button Content="Quit" Style="{StaticResource ButtonStyleSmall}" Command="{Binding ButtonQuitCommmand}"/>
+            </StackPanel>
+
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Image Source="../../Assets/lorian.jpg" Grid.RowSpan="6" HorizontalAlignment="Right"/>
+        </Grid>
+    </Grid>
+</Window>
